@@ -1,7 +1,12 @@
+let color = "black";
+
 document.addEventListener("DOMContentLoaded", function() {
-    createBoard(32);
-    getSize();
-    console.log("hi");
+    createBoard(16);
+    let btnPopup = document.querySelector('#popup');
+    btnPopup.addEventListener("click", function(){
+        let size = getSize();
+        createBoard(size); 
+    })
 })
 
 function createBoard(size){
@@ -13,6 +18,7 @@ function createBoard(size){
 
     for (let i = 0; i < numDivs; i++){
         let div = document.createElement("div");
+        div.addEventListener("mouseover", colorDiv)
         board.insertAdjacentElement("beforeend", div);
     }
 }
@@ -28,5 +34,25 @@ function getSize(){
     }
     else {
         message.textContent = "Draw!!";
+        return input;
     }
+}
+
+function colorDiv(){
+    if(color == "random"){
+        this.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`
+    }
+    else{
+        this.style.backgroundColor = 'black'
+    }
+}
+
+function setColor(colorChoice){
+    color = colorChoice;
+
+}
+
+function reset(){
+    let divs = document.querySelectorAll("div");
+    divs.forEach((div) => div.style.backgroundColor = "white");
 }
